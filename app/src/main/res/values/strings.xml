@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Seminar_2</string>
+    <string name="nume">Nume</string>
+    <string name="nedefinit">Nedefinit</string>
+    <string name="varsta">Varsta</string>
+    <string name="zero">0</string>
+    <string name="actualizeaza_profil">Actualizeaza profil</string>
+</resources>
