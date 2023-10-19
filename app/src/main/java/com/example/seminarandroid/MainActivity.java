@@ -15,6 +15,8 @@ import android.app.Instrumentation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -48,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     // launcher
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(startActivityForResultContract,
             activityResultCallback);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,27 @@ public class MainActivity extends AppCompatActivity {
         profil = (Profil) savedInstanceState.getSerializable(cheie);
         initializeazaControale(profil);
         Log.i("MainActivity", "onRestoreInstanceState");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_despre)
+        {
+            // TODO: adaugare activitate despre
+            // TODO: proiectati si implementati interfata (TextView, ImageView cu logo, TextView)
+            //                                              titlu, logo, autorul, anul
+            // TODO: folositi LinearLayout, orientare verticala
+            // TODO: codul: invocati activitatea Despre
+        }
+
+        return true;
     }
 
     void initializeazaControale(Profil profil) {
