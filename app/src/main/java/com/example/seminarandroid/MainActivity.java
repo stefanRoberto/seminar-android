@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -79,20 +80,23 @@ public class MainActivity extends AppCompatActivity {
                 activityResultLauncher.launch(intent);
             }
         });
+        Log.i("MainActivity", "onCreate");
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(cheie, profil);
+        Log.i("MainActivity", "onSaveInstanceState");
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        profil = (Profil) savedInstanceState.getSerializable("profil_nou");
+        profil = (Profil) savedInstanceState.getSerializable(cheie);
         initializeazaControale(profil);
+        Log.i("MainActivity", "onRestoreInstanceState");
     }
 
     void initializeazaControale(Profil profil) {
