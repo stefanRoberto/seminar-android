@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 public class ModificaProfilActivity extends AppCompatActivity {
 
     Profil profil;
     EditText etNume, etVarsta;
-
+    MaterialToolbar toolbar;
 
 
     private final String cheieProfilNou = "profil_nou";
@@ -21,6 +23,16 @@ public class ModificaProfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modifica_profil);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         profil = (Profil) intent.getSerializableExtra("profil");

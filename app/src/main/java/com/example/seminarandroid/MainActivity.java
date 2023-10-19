@@ -111,11 +111,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_despre)
         {
-            // TODO: adaugare activitate despre
-            // TODO: proiectati si implementati interfata (TextView, ImageView cu logo, TextView)
-            //                                              titlu, logo, autorul, anul
-            // TODO: folositi LinearLayout, orientare verticala
-            // TODO: codul: invocati activitatea Despre
+            Intent intent = new Intent(MainActivity.this, DespreActivity.class);
+            startActivity(intent);
         }
 
         return true;

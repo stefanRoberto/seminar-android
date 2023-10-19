@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Seminar_2</string>
+    <string name="app_name">Seminar DAM</string>
     <string name="nume">Nume</string>
     <string name="nedefinit">Nedefinit</string>
     <string name="varsta">Varsta</string>
@@ -8,4 +8,8 @@
     <string name="introdu_varsta">Introdu varsta...</string>
     <string name="salveaza">Salveaza profil</string>
     <string name="despre_aplicatie">Despre aplicatie</string>
+    <string name="despre_titlu">Aplicatie Seminar Android</string>
+    <string name="despre_autor">Autor: Stefan Roberto</string>
+    <string name="despre_an">An: 2023</string>
+    <string name="despre_logo_description">Logo-ul</string>
 </resources>
