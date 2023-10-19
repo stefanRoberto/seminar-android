@@ -4,14 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class ModificaProfilActivity extends AppCompatActivity {
 
     Profil profil;
-    EditText ptNume, ptVarsta;
+    EditText etNume, etVarsta;
+
+
+
+    private final String cheieProfilNou = "profil_nou";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +25,29 @@ public class ModificaProfilActivity extends AppCompatActivity {
         Intent intent = getIntent();
         profil = (Profil) intent.getSerializableExtra("profil");
 
-        ptNume = findViewById(R.id.pt_nume);
-        ptVarsta = findViewById(R.id.pt_varsta);
+        etNume = findViewById(R.id.pt_nume);
+        etVarsta = findViewById(R.id.pt_varsta);
 
         preiaControale();
+
+        Button btn_salveaza = findViewById(R.id.btn_salveaza);
+        btn_salveaza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                profil.setNume(etNume.getText().toString());
+                profil.setVarsta(Integer.parseInt(etVarsta.getText().toString()));
+
+                Intent date = new Intent();
+                date.putExtra(cheieProfilNou, profil);
+                setResult(RESULT_OK, date);
+
+                finish();
+            }
+        });
     }
 
     private void preiaControale() {
-        ptNume.setText(profil.getNume());
-        ptVarsta.setText(String.valueOf(profil.getVarsta()));
+        etNume.setText(profil.getNume());
+        etVarsta.setText(String.valueOf(profil.getVarsta()));
     }
 }

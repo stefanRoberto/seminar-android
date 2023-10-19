@@ -1,7 +1,17 @@
 package com.example.seminarandroid;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +26,28 @@ public class MainActivity extends AppCompatActivity {
     Profil profil;
     TextView tvNume, tvVarsta;
 
-    final String cheie = "profil";
+    private final String cheie = "profil";
+
+    // contract
+    ActivityResultContracts.StartActivityForResult startActivityForResultContract =
+            new ActivityResultContracts.StartActivityForResult();
+
+    // callback
+    ActivityResultCallback<ActivityResult> activityResultCallback = new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == RESULT_OK) {
+                profil = (Profil) result.getData().getSerializableExtra("profil_nou");
+
+                initializeazaControale(profil);
+            }
+        }
+    };
+
+    // launcher
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(startActivityForResultContract,
+            activityResultCallback);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         tvNume = findViewById(R.id.tv_nume);
         tvVarsta = findViewById(R.id.tv_varsta);
 
-        initializeazaControale();
+        initializeazaControale(profil);
 
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,12 +71,31 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ModificaProfilActivity.class);
                 intent.putExtra(cheie, profil);
-                startActivity(intent);
+
+                // de inlocuit pentru preluare raspuns!
+//                startActivity(intent);
+
+                // invocare activitate rezultat
+                activityResultLauncher.launch(intent);
             }
         });
     }
 
-    void initializeazaControale() {
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(cheie, profil);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        profil = (Profil) savedInstanceState.getSerializable("profil_nou");
+        initializeazaControale(profil);
+    }
+
+    void initializeazaControale(Profil profil) {
         tvNume.setText(profil.getNume());
         tvVarsta.setText(String.valueOf(profil.getVarsta()));
     }
